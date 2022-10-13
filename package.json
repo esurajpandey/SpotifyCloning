@@ -1,0 +1,37 @@
+{
+  "name": "spotify",
+  "version": "1.0.0",
+  "description": "Cloning the Spotify Application",
+  "main": "app.js",
+  "scripts": {
+    "devStart": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esurajpandey/SpotifyCloning.git"
+  },
+  "keywords": [
+    "Suraj",
+    "Clone",
+    "FirstProject"
+  ],
+  "author": "Suraj Pandey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esurajpandey/SpotifyCloning/issues"
+  },
+  "homepage": "https://github.com/esurajpandey/SpotifyCloning#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "i": "^0.3.7",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "npm": "^8.19.2",
+    "sequelize": "^6.24.0",
+    "stripe": "^10.13.0"
+  }
+}

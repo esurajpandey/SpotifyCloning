@@ -1,0 +1,27 @@
+get history
+add history
+
+
+security volition in Payment 
+
+bug found in user login :- when user is login with without premium and there is no token then it will create problem  -- fixed
+
+Bug in download whole album
+
+
+
+Task : Date : 12-10-2022
+1. Database migration
+2. Feature testing
+3. Advertise Management :-
+    a. total number of user full played
+    b. how many user skipped add
+    c. how many user received add
+
+DRM - restrictions to download the streaming media
+
+winston login system
+Payment hooks
+cron
+
+Hi

@@ -1,0 +1,125 @@
+POST http://localhost:2200/createPlaylist
+Content-Type: application/json
+
+{
+    "userId" : "1"
+}
+
+###with song
+
+POST http://localhost:2200/createPlaylist
+Content-Type: application/json
+
+{
+    "userId" : "1",
+    "songId" : "2"
+}
+
+### public playlist
+POST http://localhost:2200/createPlaylist
+Content-Type: application/json
+
+{
+    "userId" : "1",
+    "playlistType" : "public",
+    "songId" : "1"
+}
+
+###
+
+POST http://localhost:2200/createPlaylist
+Content-Type: application/json
+
+{
+    "userId" : "1",
+    "playlistType" : "public"
+}
+
+###GET 
+GET http://localhost:2200/songOfUserPlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "2"
+}
+
+###
+GET http://localhost:2200/songOfPublicPlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "1"
+}
+
+
+###add song to playlist
+GET http://localhost:2200/getUserPlaylists
+Content-Type: application/json
+
+{
+    "userId" : "1"
+}
+
+
+###remove playlist
+DELETE http://localhost:2200/removePlaylist/1
+
+###Remove song 
+DELETE http://localhost:2200/removeSong/2/3
+
+
+###add song to playlist
+POST http://localhost:2200/addSongToPlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "2",
+    "songId" : "2"
+}
+
+###edit playlist
+GET http://localhost:2200/editPlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "2"
+}
+
+###edit
+POST http://localhost:2200/editPlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "5",
+    "title" : "Stark",
+    "description" : "Created By Stark Pandey",
+    "cover" : "http://url/darkstories"
+}
+
+###Liked the playlist
+POST http://localhost:2200/likePlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "5",
+    "userId" : "2"
+}
+
+###unlike the playlist
+
+POST http://localhost:2200/unlikePlaylist
+Content-Type: application/json
+
+{
+    "playlistId" : "1",
+    "userId" : "2"
+}
+
+
+###getLikedPlaylist
+GET http://localhost:2200/getLikedPlaylists
+Content-Type: application/json
+
+{
+    "userId" : "2"
+}
