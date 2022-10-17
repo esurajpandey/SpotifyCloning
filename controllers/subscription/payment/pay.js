@@ -63,7 +63,7 @@ exports.paymentDone = async (req,resp,next)=> {
                 userId : userId
             }
         });
-
+        const plan = await Plan.findByPk(subscription.planId);
         //update subscription details
         subscription.endDate = getEndDate(plan.durationDay);
         subscription.planId =  planId;

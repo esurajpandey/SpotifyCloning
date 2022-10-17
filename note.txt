@@ -23,5 +23,9 @@ DRM - restrictions to download the streaming media
 winston login system
 Payment hooks
 cron
+Know About some devops terms
 
-Hi
+
+---eventloop
+---promises
+---slice--splice

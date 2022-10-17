@@ -39,6 +39,7 @@ exports.Settings = connection.define(
             type: Sequelize.BOOLEAN,
             defaultValue : false
         },
+        
         userId : Sequelize.INTEGER,
     }
 );

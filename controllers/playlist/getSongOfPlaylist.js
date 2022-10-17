@@ -94,13 +94,15 @@ exports.getSongsOfUserPlaylist = async (req,resp,next) =>{
 }
 
 exports.getSongsOfPublicPlaylist = async(req,resp,next) => {
+    const userId = req.userId;
+    console.log(userId);
     try{
         const playlist = await Playlist.findOne({
             where : { 
                 playlistId : req.body.playlistId,
                 type : 'public'
             },
-            attributes : ['title','cover','description','likes'],
+            attributes : ['playlistId','title','cover','description','likes'],
             include: [
                 {
                     model : User,
@@ -133,19 +135,30 @@ exports.getSongsOfPublicPlaylist = async(req,resp,next) => {
                 }
             ]
         });
-        if(req.userId){
-            try{
-                const history = await History.findOne({
-                    where : {
-                        userId : req.userId,
-                    }
-                });
-                let res = await history.addPlaylists([playlist]);
-            }catch(err){
-                resp.status(400).send(err);
+        if(playlist == null){
+            resp.send({
+                message : "Playlist is not accessible"
+            })
+        }else{
+            if(userId){
+                try{
+                    const history = await History.findOne({
+                        where : {
+                            userId : userId,
+                        }
+                    });
+                    console.log(history.historyId);
+                    const playlistAdd = await Playlist.findByPk(playlist.playlistId);
+                    console.log(playlistAdd.userId);
+                    let res = await history.addPlaylists([playlistAdd]);
+                    resp.status(200).send(playlist);
+                }catch(err){
+                    resp.status(400).send(err.message);
+                }
+            }else{
+                resp.status(200).send(playlist);
             }
         }
-        resp.status(200).send(playlist);
     }catch(err){
         resp.status(400).send(err.message);
     }

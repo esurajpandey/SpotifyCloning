@@ -11,7 +11,7 @@ exports.publicPlaylist = async(req,resp,next) =>{
             where : {
                 type : 'public'
             },
-            attributes : ['title','cover'],
+            attributes : ['playlistId','title','cover'],
             include : [
                 {
                     model : User,

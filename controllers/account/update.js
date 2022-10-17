@@ -7,6 +7,7 @@ exports.getUpdateUser = (req,resp,next) =>{
     User.findByPk(userId)
     .then(user => {
        resp.status(200).send({
+            userName :  user.userName,
             name : user.name,
             userLanguage: user.userLanguage,
             userDob :user.userDob,

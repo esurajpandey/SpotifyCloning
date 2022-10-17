@@ -22,8 +22,9 @@ exports.editPlaylist = async (req,resp,next) => {
             }
             playlist = await playlist.save();
             resp.status(200).send(playlist);
+        }else{
+            resp.status(500).send({message : 'No rights to edit',cause : 'Created By someone'});
         }
-        resp.status(500).send({message : 'No rights to edit',cause : 'Created By someone'});
     }catch(err) {
         resp.status(400).send(err.message);
     }
@@ -38,6 +39,7 @@ exports.getEditPlaylist = async (req,resp,next) =>{
         const playlist = await Playlist.findByPk(req.body.playlistId);
         
         resp.send({
+            playlistId :  playlist.playlistId,
             title : playlist.title,
             description : playlist.description,
             cover : playlist.cover,

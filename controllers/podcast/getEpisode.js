@@ -5,7 +5,7 @@ exports.getEpisode = async(req,resp,next) =>{
     const offset = req.body.offset ;
     const podId = req.body.podcastId;
     const episodeId = req.body.episodeId;
-
+    
     try{
         const data = await Episode.findOne({
             limit : 10,

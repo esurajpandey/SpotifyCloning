@@ -19,7 +19,6 @@ exports.User = connection.define('user',{
     },
     userEmail : {
         type: Sequelize.STRING,
-        allowNull : false,
         unique : true
     },
     userPhone :{

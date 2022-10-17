@@ -5,10 +5,19 @@ const {getHashPassword} = require('../auth/hashData');
 const {User,Playlist,Settings,History,ActivityLog} = db;
 
 exports.create = async(req,resp,next)=> {
+
     try {
         const password = await getHashPassword(req.body.userPassword);
+
+        const users = await User.findAll();
+        const username = req.body.name;
+        if(users){
+            username = username + users.length;
+        }else{
+            username = username + "1";
+        }
         let user = {
-            userName : req.body.userName,
+            userName : username,
             name : req.body.name,
             userEmail : req.body.userEmail,
             userPhone : req.body.userPhone,

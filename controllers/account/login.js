@@ -81,14 +81,15 @@ exports.login = async (req, resp, next) => {
         
         if(checkData.isAccess){
           resp.send({
+            name : user.name,
             token :checkData.accessToken,
-            message : checkData.message
+            message : checkData.message,
           });
         }else{
           resp.status(300).send(checkData.message);
         }
       } else {
-        resp.status(300).send("Incorrect password");
+        throw new Error('Incorrect email or password');
       }
   }catch (err) {
 

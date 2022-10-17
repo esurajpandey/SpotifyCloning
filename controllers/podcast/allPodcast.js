@@ -8,7 +8,7 @@ exports.allPodcasts = async(req,resp,next) =>{
         const pods = await Podcast.findAll({
             limit : 10,
             offset : offset * 10,
-            attributes : ['studio','cover','title']
+            attributes : ['podcastId','studio','cover','title']
         });
         resp.send(pods);
     }catch(err){

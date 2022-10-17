@@ -11,7 +11,7 @@ exports.getUserPlaylist = async (req,resp,next) =>{
             where: {
                 userId : userId,
             },
-            attributes : ['title','cover'],
+            attributes : ['playlistId','title','cover'],
             include : [
                 {
                     model : User,
