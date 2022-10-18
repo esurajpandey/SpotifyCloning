@@ -24,7 +24,6 @@ exports.create = async(req,resp,next)=> {
             userPassword : password,
             userLanguage : req.body.userLanguage,
             userDob : req.body.userDob,
-            userProfile : req.body.userProfile
         };
         
         user = await User.create(user);

@@ -1,9 +1,18 @@
 const db = require('../../models/db');
 const {User} = db;
+const cloudinary = require('cloudinary').v2;
 
-exports.getUpdateUser = (req,resp,next) =>{
+//configuration
+
+cloudinary.config({ 
+    cloud_name: 'durmhsdmz', 
+    api_key: '939679267961565', 
+    api_secret: 'A2M7U90paLbLUwUztgJsdeDc04M' 
+});
+
+
+exports.getUpdateUser = async (req,resp,next) =>{
     const userId = req.userId;
-
     User.findByPk(userId)
     .then(user => {
        resp.status(200).send({
@@ -22,27 +31,36 @@ exports.getUpdateUser = (req,resp,next) =>{
     });
 }
 
-exports.postUpdateUser = (req,resp,next)=>{
-    const userId = req.userId;
+exports.postUpdateUser = async (req,resp,next)=>{
+   try{
+    const user = await User.findByPk(req.userId);
+    user.gender =  req.body.gender;
+    user.userDob = req.body.userDob;
+    
+    //resp.send({status : true , result : });
+   }catch(err){
+    resp.send({status : false, message : err.message});
+   }
+}
 
-    const updated_name  =  req.body.name;
-    const updated_userLanguage = req.body.userLanguage;
-    const updated_userDob = req.body.userDob;
-    const updated_userProfile = req.body.userProfile;
+exports.setProfile = async (req,resp,next) =>{
+    try{
+        const user = await User.findByPk(req.userId);
+        const file = req.files.mypic;
+        const res =  await cloudinary.uploader.upload(file.tempFilePath);
+        user.name = req.body?.name ?? user.name;
+        user.userProfile = res.url;
+        resp.send({status : true,result : "Profile Updated"});
+    }catch(err) {
+        resp.send({status : false, result : err.message});
+    }
+}
 
-    User.findByPk(userId)
-    .then(user => {
-        console.log(user);
-        user.name = updated_name;
-        user.userLanguage = updated_userLanguage;
-        user.userDob = updated_userDob;
-        user.userProfile = updated_userProfile;
-        return user.save();
-    })
-    .then(result =>{
-        resp.status(200).send('Account updated');
-    })
-    .catch(err =>{
-        resp.status(400).send(err);
-    });
+exports.getProfile = async (req,resp,next) =>{
+    try{
+        const user = await User.findByPk(req.userId);
+        resp.send({name : user.name,profile : user.userProfile});
+    }catch(err) {
+        resp.send({status : false, result : err.message});
+    }
 }

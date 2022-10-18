@@ -25,7 +25,17 @@ exports.Podcast = connection.define(
             type : Sequelize.STRING,
             allowNull : false,
             defaultValue : 'Spotify',
+        },
+        artistId :  { 
+            type :  Sequelize.INTEGER,
+            allowNull : false,
+            references : {
+                model : "artists",
+                key : "artistId"
+            }
         }
+    },{
+        timestamp : false
     }
 );
 

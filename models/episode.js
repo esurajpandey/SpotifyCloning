@@ -33,6 +33,6 @@ exports.Episodes = connection.define(
            allowNull : false,
        }
    },{
-       createdAt: 'addedOn'
+       timestamp : false
    }
 );

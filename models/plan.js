@@ -39,5 +39,7 @@ exports.Plan = connection.define('plans',{
         allowNull : false,
     },
     offlinePlay : Sequelize.BOOLEAN,
+},{
+    timestamp :false
 });
 

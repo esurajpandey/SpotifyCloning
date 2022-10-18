@@ -29,3 +29,7 @@ Know About some devops terms
 ---eventloop
 ---promises
 ---slice--splice
+
+//Task
+validate email
+check user is exists or not at account create time

@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const connection = require('./connection.js');
-
 exports.User = connection.define('user',{
     userId: {
         type: Sequelize.INTEGER,
@@ -15,7 +14,7 @@ exports.User = connection.define('user',{
     },
     name : {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     userEmail : {
         type: Sequelize.STRING,
@@ -25,21 +24,24 @@ exports.User = connection.define('user',{
         type : Sequelize.STRING,
         unique : true,
     },
-    userPassword: Sequelize.STRING,
+    userPassword: {
+        type : Sequelize.STRING,
+        allowNull :false
+    },
     userLanguage: {
         type: Sequelize.STRING,
-        allowNull: false,
+        defaultValue : "Hindi",
+    },
+    userGender : {
+        type : Sequelize.STRING,
+        allowNull : false
     },
     userDob:{
         type : Sequelize.DATEONLY,
         allowNull:false,
     },
     userProfile : {
-        type :Sequelize.STRING,
+        type :Sequelize.TEXT,
         allowNull: true,
     },
-    // isPremium : {
-    //     type : Sequelize.BOOLEAN,
-    //     defaultValue : false
-    // }
 });

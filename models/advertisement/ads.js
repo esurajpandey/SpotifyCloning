@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-
-
 const connection = require('../connection');
 
 exports.ads = connection.define(
@@ -11,9 +9,23 @@ exports.ads = connection.define(
             allowNull: false,
             primaryKey : true
         },
+
         title : Sequelize.STRING,
         type : Sequelize.STRING,//song,image,video,
         src : Sequelize.STRING,
-        duration : Sequelize.INTEGER
+        duration : Sequelize.STRING,
+
+        received : {
+            type : Sequelize.INTEGER,
+            defaultValue : 0
+        },
+        skipped : {
+            type : Sequelize.INTEGER,
+            defaultValue : 0
+        },
+        fullPlayed : {
+            type : Sequelize.INTEGER,
+            defaultValue : 0
+        },
     }
 );

@@ -31,8 +31,7 @@ const {
     PodcastFollower,
     Podcast_History
 } = require('./relationalModel');
-
-
+const { ads } = require('./advertisement/ads');
 const db = {};
 db.connection = connection;
 db.User = User;
@@ -66,6 +65,7 @@ db. LikedSong = LikedSong;
 db.PlaylistTag = PlaylistTag;
 db. PodcastFollower = PodcastFollower;
 db.Podcast_History = Podcast_History;
+db.ads = ads;
 
 /*----- One to One -----*/
 User.hasOne(Settings,{
@@ -111,7 +111,6 @@ ActivityLog.belongsTo(User,{
 });
 
 /*------one to many-------*/
-
 Song.hasMany(SongQuality,{
     foreignKey : 'songId'
 });
@@ -133,14 +132,6 @@ Podcast.hasMany(Episodes, {
 });
 Episodes.belongsTo(Podcast,{
     foreignKey : "podcastId"
-});
-
-Episodes.belongsTo(Artist,{
-    foreignKey : "artistId"
-});
-
-Artist.hasMany(Episodes,{
-    foreignKey : "artistId"
 });
 
 User.hasMany(Playlist,{

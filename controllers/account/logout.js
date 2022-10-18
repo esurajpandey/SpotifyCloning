@@ -51,3 +51,12 @@ exports.logout = async (req,resp,next) =>{
         console.log(err.message);
     }
 }
+
+exports.logoutFromEverywhere = async (req,resp,next) =>{
+    try{    
+        
+
+    }catch(err){
+        resp.send({status : false,message : err.message});
+    }
+}
