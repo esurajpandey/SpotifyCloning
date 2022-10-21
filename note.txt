@@ -33,3 +33,13 @@ Know About some devops terms
 //Task
 validate email
 check user is exists or not at account create time
+
+
+//Task
+recovery of playlist
+search album of song - done - get Album
+search artist of song - done - getArtistData
+create song with playlist -- playlist name === Song name or album name
+
+
+uninstalled express-fileUploader -- due to multer

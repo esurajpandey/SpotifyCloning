@@ -15,9 +15,7 @@ const checkValidation = async(userId,deviceId)=>{
   let data = {
     userId: userId,
   };
-  const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: 8640000,
-  });
+  const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
 
   //get plan
   const plan = await Plan.findOne({
@@ -77,6 +75,11 @@ exports.login = async (req, resp, next) => {
       }
 
       if (await bcrypt.compare(req.body.userPassword, user.userPassword)) {
+
+        // const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
+        //   expiresIn: 8640000,
+        // });
+        // resp.send(accessToken);
         const checkData = await checkValidation(user.userId,deviceId);
         
         if(checkData.isAccess){

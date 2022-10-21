@@ -11,7 +11,10 @@ app.use(express.json());
 app.use(fileUpload({
     useTempFiles:true
 }));
+app.use(express.urlencoded({ extended: true }));
 
+const admin = require('./Admin/routes/adminRouter');
+app.use('/admin',admin)
 
 const user = require('./routes/user');
 app.use('/user',user);

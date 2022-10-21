@@ -3,7 +3,7 @@ const { Playlist,User } = db;
 
 exports.publicPlaylist = async(req,resp,next) =>{
     const userId = req.userId;
-    const offset = req.body.offset;
+    const offset = req.params.offset;
     try{
         const playlists = await Playlist.findAll({
             limit : 10,

@@ -1,14 +1,15 @@
-const {create} = require('./create');
+const {createAccount} = require('./createAccount');
 const {login} = require('./login');
 const {getUsers} = require('./users');
 const {changePassword} = require('./changePassword');
 const {deleteAccount} = require('./deleteAccount');
-const {logout} = require('./logout');
+const {logout, logoutFromEverywhere} = require('./logout');
 const {editSettings,getSettings} = require('./setting');
-const {postUpdateUser,getUpdateUser} = require('./update');
+const {postUpdateUser,getUpdateUser, setProfile,getProfile} = require('./update');
+const { isEmailExits } = require('./emailExist');
 
 const account = {};
-account.create = create;
+account.createAccount = createAccount;
 account.login = login;
 account.getUsers = getUsers;
 account.editSettings = editSettings;
@@ -18,5 +19,8 @@ account.deleteAccount = deleteAccount;
 account.logout = logout;
 account.postUpdateUser = postUpdateUser;
 account.getUpdateUser = getUpdateUser;
-
+account.setProfile = setProfile;
+account.getProfile =  getProfile;
+account.logoutFromEverywhere = logoutFromEverywhere;
+account.isEmailExits = isEmailExits;
 module.exports = account;

@@ -3,91 +3,92 @@ const {Artist,Album,Song,Playlist,User,History,SongQuality} = db;
 
 exports.getSongsOfUserPlaylist = async (req,resp,next) =>{
     const userId = req.userId;
-    const playlistId = req.body.playlistId;
-    const offset = req.body.offset;
+    const playlistId = req.params.playlistId;
+    const offset = req.params.offset;
+    console.log(`Playlist : ${playlistId} -- offset ${offset}`);
+
     if(!userId){//if user want to create playlist without login
         resp.status(500).send('You have to login first');
     }
     try{
-        const songs = await Song.findAll({
-            limit : 2,
-            offset :offset * 2,
-            attributes : ['songId','title','cover','playCount','duration'],
-            include : [
-                {
-                    model :  Playlist,
-                    attributes : ['title','cover','description','likes'],
-                    where : {
-                        playlistId :  playlistId
-                    },
-                    through : {
-                        attributes : ['addedOn']
-                    }
-                },
-                {
-                    model : Artist,
-                    attributes : ['artistName'],
-                    through: {
-                        attributes : [],//sungBy
-                    },
-                },
-                {
-                    model : Album,
-                    attributes : ['title'],
-                },
-                {
-                    model :  SongQuality,
-                    attributes : ['url'],
-                    where : {
-                        rate : 128
-                    }
-                }
-            ]
-        });
-
-        // const playlist = await Playlist.findOne({
-        //     limit : 1,
-        //     offset : offset * 1,
-        //     where : { 
-        //         playlistId : playlistId 
-        //     },
-        //     attributes : ['title','cover','description'],
-        //     include: [
+        // const songs = await Song.findAll({
+        //     limit : 10,
+        //     offset :offset * 10,
+        //     attributes : ['songId','title','cover','playCount','duration'],
+        //     include : [
         //         {
-        //             model : User,
-        //             attributes : ['name']
+        //             model :  Playlist,
+        //             attributes : ['title','cover','description','likes'],
+        //             where : {
+        //                 playlistId :  playlistId
+        //             },
+        //             through : {
+        //                 attributes : ['addedOn']
+        //             }
         //         },
         //         {
-        //             model: Song,
-                    
+        //             model : Artist,
+        //             attributes : ['artistName'],
         //             through: {
-        //                 attributes : ['addedOn'],//songInPlaylist
+        //                 attributes : [],//sungBy
         //             },
-        //             include : [
-        //                 {
-        //                     model : Artist,
-        //                     attributes : ['artistName'],
-        //                     through: {
-        //                         attributes : [],//sungBy
-        //                     },
-        //                 },{
-        //                     model : Album,
-        //                     attributes : ['title'],
-        //                 },{
-        //                     model : Artist,
-        //                     attributes : ['artistName'],
-        //                     through: {
-        //                         attributes : [],//sungBy
-        //                     },
-        //                 },{
-        //                     model : Album,
-        //                     attributes : ['title'],
-        //                 }                   ]
+        //         },
+        //         {
+        //             model : Album,
+        //             attributes : ['title'],
+        //         },
+        //         {
+        //             model :  SongQuality,
+        //             attributes : ['url'],
+        //             where : {
+        //                 rate : 128
+        //             }
         //         }
         //     ]
         // });
+        const playlist = await Playlist.findOne({
+            limit : 1,
+            offset : offset * 1,
+            where : { 
+                playlistId : playlistId 
+            },
+            attributes : ['title','cover','description'],
+            include: [
+                {
+                    model : User,
+                    attributes : ['name']
+                },
+                {
+                    model: Song,
+                    
+                    through: {
+                        attributes : ['addedOn'],//songInPlaylist
+                    },
+                    include : [
+                        {
+                            model : Artist,
+                            attributes : ['artistName'],
+                            through: {
+                                attributes : [],//sungBy
+                            },
+                        },{
+                            model : Album,
+                            attributes : ['title'],
+                        },{
+                            model : Artist,
+                            attributes : ['artistName'],
+                            through: {
+                                attributes : [],//sungBy
+                            },
+                        },{
+                            model : Album,
+                            attributes : ['title'],
+                        }                   ]
+                }
+            ]
+        });
         
-        resp.status(200).send(songs);
+        resp.status(200).send(playlist);
     }catch(err){
         resp.status(400).send(err.message);
     }

@@ -41,10 +41,11 @@ const clearLogEntry = async (userId,deviceId) =>{
 
 exports.logout = async (req,resp,next) =>{
     const userId = req.userId;
-    const deviceId = req.body.deviceId;
-   
+    const deviceId = req.params.deviceId;
+    console.log(deviceId);
     try{
         let res = await clearLogEntry(userId,deviceId);
+        // let res = {code :200,message : "Logout"};
         resp.status(res.code).send(res.message);
     }catch(err){
         resp.status(400).send(err.message);
@@ -54,8 +55,20 @@ exports.logout = async (req,resp,next) =>{
 
 exports.logoutFromEverywhere = async (req,resp,next) =>{
     try{    
-        
+        const userId = req.userId;
+        const log = await ActivityLog.findOne({
+            where : {
+                userId : userId
+            }
+        });
 
+        const tokens = await LoginToken.findAll({
+            where : {
+                logId : log.logId
+            }
+        });
+        await tokens.destroy();
+        resp.send({status : true, result : "Logout Successful" });
     }catch(err){
         resp.send({status : false,message : err.message});
     }

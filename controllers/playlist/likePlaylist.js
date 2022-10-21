@@ -2,10 +2,12 @@ const db = require('../../models/db');
 const {Playlist,User} = db;
 
 exports.likePlaylist = async(req,resp,next)=>{
+    const playlistId = req.params.playlistId;
+    let userId = req.userId;
     try{
         let playlist = await Playlist.findOne({
             where : {
-                playlistId : req.body.playlistId,
+                playlistId : playlistId,
                 type : "public"
             }
         });
@@ -16,10 +18,10 @@ exports.likePlaylist = async(req,resp,next)=>{
             })
         }else{
             let likesCount = playlist.likes;
-            let userId = req.userId;
             const user = await User.findByPk(userId);            
             playlist.likes = likesCount +1;
             playlist =  await playlist.save();
+            
             //adding to userLiked playlist
             const result = await playlist.addUsers([user]);
             console.log(result);

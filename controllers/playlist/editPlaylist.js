@@ -4,11 +4,10 @@ const {Playlist} = db;
 
 exports.editPlaylist = async (req,resp,next) => {
     const userId = req.userId;
+    const playlistId = req.params.playlistId;
+    
     try{
-        if(!userId){//if user want to create playlist without login
-            resp.status(500).send('You have to login first');
-        }
-        let playlist = await  Playlist.findByPk(req.body.playlistId);
+        let playlist = await  Playlist.findByPk(playlistId);
         if(userId === playlist.userId){
 
             playlist.title =  req.body.title;

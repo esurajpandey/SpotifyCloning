@@ -1,4 +1,5 @@
-const {Settings} = require('../../models/user');
+const db = require('../../models/db');
+const {Settings} = db;
 
 exports.editSettings = async (req,resp,next)=>{
     const userId = req.userId;
@@ -22,16 +23,18 @@ exports.editSettings = async (req,resp,next)=>{
     }
 }
 
-exports.getSettings = (req,resp,next)=>{
-    Settings.findOne({
-        where : {
-            userId : req.userId
-        }
-    })
-    .then(setting => {
-        resp.json(setting);
-    })
-    .catch(err =>{
-        resp.send(err);
-    });
+exports.getSettings = async (req,resp,next)=>{
+    const userId = req.userId;
+    console.log(userId);
+    try{
+        const settings = await Settings.findOne({
+            where : {
+                userId : userId
+            },
+            attributes : ['productNews','spotifyNewsAdnOffers','recommendation','newMusic','playlistUpdate','artistUpdate','concertNotification','id']
+        });
+        resp.send(settings);
+    }catch(err){
+        resp.send(err.message);
+    }
 }

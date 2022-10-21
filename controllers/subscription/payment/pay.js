@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
+const { getEndDate } = require('../../../helper/getNextDate');
 const db = require('../../../models/db');
 const {Plan,Subscription} = db;
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
 exports.makePayment = async(req,resp,next) => {
     const data = await Plan.findByPk(req.body.planId);
     let plan = [{
@@ -38,15 +38,7 @@ exports.makePayment = async(req,resp,next) => {
 }
 
 
-function getEndDate(days){
 
-    let today = new Date();
-    let day = today.getDate() + days;
-    let endDate = new Date(today.getFullYear(),today.getMonth(),day);
-    console.log(endDate);
-    return endDate;
-
-}
 
 exports.paymentDone = async (req,resp,next)=> {
 

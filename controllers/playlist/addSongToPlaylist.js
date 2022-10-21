@@ -4,7 +4,7 @@ const {Playlist,Song} = db;
 
 exports.addSongToPlayList =  (req,resp,next) => {
     const userId = req.userId;
-    const playlistId = req.body.playlistId;
+    const playlistId = req.params.playlistId;
 
     Playlist.findByPk(playlistId)
     .then(async playlist =>{

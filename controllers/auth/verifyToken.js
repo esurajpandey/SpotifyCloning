@@ -5,6 +5,7 @@ exports.authenticateToken = async (req,resp,next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(" ")[1];
     
+    // 'BarearToken  sfjkbasgfasgfgaskjdfhashgfhjsbfgsfbashgfhjasgfghfgasfdg'
     if(token == null){
         return resp.sendStatus(401);
     }

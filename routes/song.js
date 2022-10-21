@@ -9,5 +9,5 @@ route.get('/getAll',authenticateToken,song.getSongs);
 route.post('/like',authenticateToken,song.likeSong);
 route.post('/unlike',authenticateToken,song.unLikeSong);
 route.get('/change/quality',authenticateToken,song.changeQuality);
-
+route.get('/songTrack/:name',song.songTrack)
 module.exports = route;

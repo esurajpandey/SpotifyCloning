@@ -2,7 +2,7 @@ const db = require('../../models/db');
 const { Playlist,User } = db;
 
 exports.getUserPlaylist = async (req,resp,next) =>{
-    const offset = req.body.offset;
+    const offset = req.params.offset;
     const userId = req.userId;
     try{
         const playlist = await Playlist.findAll({
@@ -10,6 +10,7 @@ exports.getUserPlaylist = async (req,resp,next) =>{
             offset : offset * 5,
             where: {
                 userId : userId,
+                isArchive : false
             },
             attributes : ['playlistId','title','cover'],
             include : [

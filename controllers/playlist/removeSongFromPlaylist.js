@@ -2,13 +2,8 @@ const db = require('../../models/db');
 const {Playlist,Song} = db;
 
 exports.removeSongFromPlaylist = async (req,resp,next) =>{
-    
-    if(!req.userId){//if user want to create playlist without login
-        resp.status(500).send('You have to login first');
-    }
-
-    let playlistId = req.body.playlistId;
-    let songId = req.body.songId;
+    let playlistId = req.params.playlistId;
+    let songId = req.params.songId;
     let userId = req.userId;
 
     try{

@@ -1,18 +1,18 @@
 const connection = require('./connection');
-const {User} = require('./user');
-const {ActivityLog,LoginToken} = require('./activityLog');
-const {Album} = require('./album');
-const {Artist} = require('./artist');
-const {Plan} = require('./plan');
-const {Playlist} = require('./playlist');
-const {Settings} = require('./settings');
-const {Song} = require('./song');
-const {History} = require('./history');
-const {Subscription} = require('./subscription');
-const {Tag} = require('./tag');
-const {Podcast} = require('./podcast');
-const {Episodes} = require('./episode');
-const {SongQuality} = require('./songQuality');
+const {User} = require('./Account/user');
+const {ActivityLog,LoginToken} = require('./History/activityLog');
+const {Album} = require('./Media/album');
+const {Artist} = require('./Artist/artist');
+const {Plan} = require('./Subscription/plan');
+const {Playlist} = require('./Media/playlist');
+const {Settings} = require('./Account/settings');
+const {Song} = require('./Media/song');
+const {History} = require('./History/history');
+const {Subscription} = require('./Subscription/subscription');
+const {Tag} = require('./Media/tag');
+const {Podcast} = require('./Podcast/podcast');
+const {Episodes} = require('./Podcast/episode');
+const {SongQuality} = require('./Media/songQuality');
 const {
     SongTag,
     SongInPlaylist,
@@ -132,6 +132,14 @@ Podcast.hasMany(Episodes, {
 });
 Episodes.belongsTo(Podcast,{
     foreignKey : "podcastId"
+});
+
+Podcast.belongsTo(Artist,{
+    foreignKey : "artistId"
+});
+
+Artist.hasMany(Podcast,{
+    foreignKey : "artistId"
 });
 
 User.hasMany(Playlist,{

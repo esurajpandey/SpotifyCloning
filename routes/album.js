@@ -5,8 +5,8 @@ const route = express.Router();
 
 route.get('/allAlbums',album.albums);
 route.get('/item',album.getAlbum);
-route.post('/create',album.createAlbum);
-route.post('/upload/songDetails',album.uploadSongDetails);
-route.post('/song/artists',album.assignArtist);
-route.post('/song/src',album.uploadSRC);
+// route.post('/create',album.createAlbum);
+// route.post('/upload/songDetails',album.uploadSongDetails);
+// route.post('/song/artists',album.assignArtist);
+// route.post('/song/src',album.uploadSRC);
 module.exports = route;

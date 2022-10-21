@@ -1,7 +1,7 @@
 const db = require('../../models/db');
 const {History,Album,Playlist,Artist,Song} = db;
 exports.getHistory  = async (req,resp,next) =>{
-    let offset = req.body.offset;
+    let offset = req.params.offset;
     try {
         let data = await History.findOne({
             // order : [['updatedAt','DESC']],

@@ -27,5 +27,7 @@ exports.ads = connection.define(
             type : Sequelize.INTEGER,
             defaultValue : 0
         },
+    },{
+        timestamp : false
     }
 );

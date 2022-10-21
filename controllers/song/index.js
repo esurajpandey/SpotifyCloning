@@ -1,6 +1,6 @@
 const {addSong} = require('./addSong');
 const { changeQuality } = require('./changeQuality');
-const {getSong} = require('./getSong');
+const {getSong,songTrack} = require('./getSong');
 const {getSongs} = require('./getSongs');
 const {likeSong} = require('./likeSong');
 const {unLikeSong} = require('./unlikeSong');
@@ -11,7 +11,8 @@ const song = {
     getSongs,
     likeSong,
     unLikeSong,
-    changeQuality
+    changeQuality,
+    songTrack
 };
 
 module.exports = song;

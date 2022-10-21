@@ -1,6 +1,6 @@
 const {getAlbum} = require('./getAlbum');
 const {albums} = require('./albums');
-const {createAlbum, uploadSongDetails,uploadSRC,assignArtist} = require('./createAlbum');
+const {createAlbum, uploadSongDetails,uploadSRC,assignArtist} = require('../../Admin/Album/createAlbum');
 
 const album = {};
 album.albums = albums;
