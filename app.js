@@ -2,17 +2,21 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./models/db');
 const fileUpload = require('express-fileupload');
-
+const cors = require('cors')
 
 const app = express();
 const PORT = 3000;
 app.use(express.json());
 
+app.use(cors({
+}));
+
+
 app.use(fileUpload({
     useTempFiles:true
 }));
-app.use(express.urlencoded({ extended: true }));
 
+app.use(express.urlencoded({ extended: true }));
 const admin = require('./Admin/routes/adminRouter');
 app.use('/admin',admin)
 

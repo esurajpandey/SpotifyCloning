@@ -3,7 +3,7 @@ const express = require('express');
 const {authenticateToken} = require('../controllers/auth/verifyToken');
 const route = express.Router();
 
-route.get('/plans',authenticateToken,subscription.allPlans);
+route.get('/plans',subscription.allPlans);
 route.get('/subscription',authenticateToken,subscription.getUserSubscription);
 // route.post('/subscribe',authenticateToken,subscription.subscribePlan);
 route.post('/payment',authenticateToken,subscription.makePayment);

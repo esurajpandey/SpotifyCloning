@@ -17,7 +17,7 @@ route.get('/public/song/:playlistId/:offset',authenticateToken,playlist.getSongs
 route.get('/private/song/:playlistId/:offset',authenticateToken,playlist.getSongsOfUserPlaylist);
 
 route.get('/userPlaylist/:offset',authenticateToken,playlist.getUserPlaylist);
-route.get('/public/playlists/offset',authenticateToken,playlist.publicPlaylist);
+route.get('/public/playlists/:offset',playlist.publicPlaylist);
 
 route.post('/like/:playlistId',authenticateToken,playlist.likePlaylist);
 route.post('/unlike/:playlistId',authenticateToken,playlist.unlikePlaylist);
