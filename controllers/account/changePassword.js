@@ -5,6 +5,7 @@ const {getHashPassword} = require('../auth/hashData');
 
 exports.changePassword = async (req,resp,next) =>{
     const newPassword = req.body.newPassword;
+    console.log(req.userId);
     const res = {};
 
     if(newPassword === req.body.userPassword){

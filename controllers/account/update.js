@@ -6,6 +6,7 @@ const { getUploadedUrl } = require("../../helper/getUrlFromCloudinary");
 const { User } = db;
 
 exports.getUpdateUser = async (req, resp, next) => {
+  // const userId = req.userId;
   const userId = req.userId;
   try{
     const user = await User.findByPk(userId);
@@ -26,6 +27,7 @@ exports.getUpdateUser = async (req, resp, next) => {
     }
     resp.send({
       userData : {
+          userId :user.userId,
           userName: user.userName,
           userEmail: user.userEmail,
           userGender: user.userGender,
@@ -43,23 +45,21 @@ exports.getUpdateUser = async (req, resp, next) => {
 
 exports.postUpdateUser = async (req, resp, next) => {
     const rd = {};
+    console.log(`userId : ${req.userId} body ${req.body.userEmail}`);
   try {
     const user = await User.findByPk(req.userId);
     if (await bcrypt.compare(req.body.userPassword, user.userPassword)) {
       //checking email is exist or not
       console.log(req.body.userEmail);
-      if(await getUserByEmail(req.body.userEmail)){
-        rd.status = false;
-        rd.result = "Email is already exists";
-      }else{
-        user.userEmail = req.body?.userEmail ?? user.userEmail;
-        user.userGender = req.body?.userGender ?? user.userGender;
-        user.userDob = req.body?.userDob ?? user.userDob;
-        // user.userLanguage = req.body.userLanguage;
-        await user.save();
-        rd.status = true;
-        rd.message = "User Updated"
-      }
+      user.userEmail = req.body?.userEmail ?? user.userEmail;
+      user.userGender = req.body?.userGender ?? user.userGender;
+      user.userDob = req.body?.userDob ?? user.userDob;
+      
+      // user.userLanguage = req.body.userLanguage;
+      const d = await user.save();
+      rd.status = true;
+      rd.message = "User Updated"
+      console.log(d);
     }else{
         rd.status = false;
         rd.message = "Password is wrong"

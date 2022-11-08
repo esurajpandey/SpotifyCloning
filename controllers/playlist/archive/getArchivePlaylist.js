@@ -1,3 +1,4 @@
+
 const db = require('../../../models/db');
 
 exports.archivePlaylists = async (req,resp,next) =>{
@@ -13,9 +14,14 @@ exports.archivePlaylists = async (req,resp,next) =>{
                 isArchive : true
             },
             attributes : ['playlistId','title','updatedAt'],
+            include : [
+                {
+                    model : db.Song,
+                }
+            ]
         });
 
-        resp.send({status : true,result : playlists});
+        resp.send(playlists);
     }catch(err){
         resp.send({status: false,result : err.message});
     }

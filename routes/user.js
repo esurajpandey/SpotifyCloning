@@ -12,7 +12,7 @@ route.patch('/changePassword',authenticateToken,account.changePassword);
 route.delete('/delete',authenticateToken,account.deleteAccount);
 
 route.patch('/edit',authenticateToken,account.postUpdateUser);
-route.get('/account',authenticateToken,account.getUpdateUser);
+route.get('/account/',authenticateToken,account.getUpdateUser);
 
 route.get('/getSettings',authenticateToken,account.getSettings);
 route.patch('/editSettings',authenticateToken,account.editSettings);

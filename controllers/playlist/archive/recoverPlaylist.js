@@ -2,7 +2,7 @@ const db = require('../../../models/db');
 
 exports.recoverPlaylist = async ( req,resp,next) =>{
     const userId = req.userId;
-    const playlistId = req.params.playlistId;
+    const playlistId = req.body.playlistId;
     try{ 
         const playlist = await db.Playlist.findByPk(playlistId);
         playlist.isArchive = false;

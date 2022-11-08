@@ -15,7 +15,7 @@ exports.authenticateToken = async (req,resp,next) => {
             return resp.send();
         }
         req.userId = decoded.userId;
-        // console.log(`In verify token ${req.userId}`);
+        console.log(`In verify token ${req.userId}`);
         next();
     });
 }

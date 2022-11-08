@@ -13,7 +13,7 @@ route.post('/addSong/:songId/:playlistId',authenticateToken,playlist.addSongToPl
 route.post('/edit/:playlistId',authenticateToken,playlist.editPlaylist);
 route.get('/edit/:playlistId',authenticateToken,playlist.getEditPlaylist);
 
-route.get('/public/song/:playlistId/:offset',authenticateToken,playlist.getSongsOfPublicPlaylist);
+route.get('/public/song/:playlistId/:offset',playlist.getSongsOfPublicPlaylist);
 route.get('/private/song/:playlistId/:offset',authenticateToken,playlist.getSongsOfUserPlaylist);
 
 route.get('/userPlaylist/:offset',authenticateToken,playlist.getUserPlaylist);
@@ -25,7 +25,7 @@ route.post('/unlike/:playlistId',authenticateToken,playlist.unlikePlaylist);
 route.delete('/remove/:playlistId',authenticateToken,playlist.removePlaylist);
 route.delete('/removeSong/:playlistId/:songId',authenticateToken,playlist.removeSongFromPlaylist);
 
-route.get('/archived/lists',authenticateToken,playlist.archivePlaylists);
-route.post('/recover/:playlistId',authenticateToken,playlist.recoverPlaylist);
+route.get('/archived/lists/:offset',authenticateToken,playlist.archivePlaylists);
+route.patch('/recover',authenticateToken,playlist.recoverPlaylist);
 
 module.exports = route;
