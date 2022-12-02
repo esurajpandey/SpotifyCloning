@@ -41,8 +41,13 @@ const checkValidation = async(userId,deviceId)=>{
   }else{
 
     //create the login activity 
-    log.logCount = log.logCount+1;
-
+    
+    if(log?.logCount == 0){
+      log.logCount = 1;
+    }else{
+      log.logCount = log?.logCount + 1;
+    }
+    
     await log.save();
 
     //create login Token 
@@ -66,42 +71,35 @@ exports.login = async (req, resp, next) => {
 
   const email = req.body.userEmail;
   const deviceId = req.body.deviceId;
-
   try {
       const user = await getUserByEmail(email);
-
       if (user == null) {
-        return resp.status(400).send("Cannot find user");
+        return resp.status(400).send(JSON.stringify({message : "Cannot find user"}));
       }
 
       if (await bcrypt.compare(req.body.userPassword, user.userPassword)) {
 
-        // const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
-        //   expiresIn: 8640000,
-        // });
-        // resp.send(accessToken);
         const checkData = await checkValidation(user.userId,deviceId);
-        
         if(checkData.isAccess){
-          resp.send({
-            name : user.name,
+          resp.send(JSON.stringify({
+            user : user,
             token :checkData.accessToken,
             message : checkData.message,
-          });
+          }));
         }else{
-          resp.status(300).send(checkData.message);
+          resp.status(300).send(JSON.stringify(checkData.message));
         }
       } else {
         throw new Error('Incorrect email or password');
       }
   }catch (err) {
-
     if(err.name == "SequelizeUniqueConstraintError"){
       console.log('Already login')
-      resp.status(300).send('already Login');//or return the same tokens from token tables
+      resp.status(300).send(JSON.stringify({message  :  'already Login'}));//or return the same tokens from token tables
     }else{
-      console.log(err);
-      resp.status(400).send(err);
+      resp.send(JSON.stringify({
+        message :  err.message
+      }));
     }
   }
 }

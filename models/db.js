@@ -1,4 +1,4 @@
-const connection = require('./connection');
+const connection = require('../config/connection');
 const {User} = require('./Account/user');
 const {ActivityLog,LoginToken} = require('./History/activityLog');
 const {Album} = require('./Media/album');
@@ -13,6 +13,8 @@ const {Tag} = require('./Media/tag');
 const {Podcast} = require('./Podcast/podcast');
 const {Episodes} = require('./Podcast/episode');
 const {SongQuality} = require('./Media/songQuality');
+const {currentPlaying} = require("./Player/currentPlaying");
+
 const {
     SongTag,
     SongInPlaylist,
@@ -31,6 +33,7 @@ const {
     PodcastFollower,
     Podcast_History
 } = require('./relationalModel');
+
 const { ads } = require('./advertisement/ads');
 const db = {};
 db.connection = connection;
@@ -66,6 +69,7 @@ db.PlaylistTag = PlaylistTag;
 db. PodcastFollower = PodcastFollower;
 db.Podcast_History = Podcast_History;
 db.ads = ads;
+db.currentPlaying = currentPlaying;
 
 /*----- One to One -----*/
 User.hasOne(Settings,{
@@ -74,9 +78,20 @@ User.hasOne(Settings,{
 
 Settings.belongsTo(User,{
     foreignKey : "userId",
+});
+
+User.hasOne(currentPlaying,{
+    foreignKey:"userId",
     constraints :true,
     onDelete : 'CASCADE'
 });
+
+currentPlaying.belongsTo(User,{
+    foreignKey : "userId",
+    constraints :true,
+    onDelete : 'CASCADE'
+});
+
 
 /*-------for maintaining history of played song -------*/
 User.hasOne(History,{

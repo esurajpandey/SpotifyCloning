@@ -17,7 +17,7 @@ route.get('/account/',authenticateToken,account.getUpdateUser);
 route.get('/getSettings',authenticateToken,account.getSettings);
 route.patch('/editSettings',authenticateToken,account.editSettings);
 
-route.post('/logout/:deviceId',authenticateToken,account.logout);
+route.post('/logout',authenticateToken,account.logout);
 route.post('/logout/all',authenticateToken,account.logoutFromEverywhere);
 
 route.get('/profile',authenticateToken,account.getProfile);

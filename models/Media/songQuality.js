@@ -1,4 +1,4 @@
-const connection = require('../connection');
+const connection = require('../../config/connection');
 const sequelize = require('sequelize');
 const { Song } = require('./song');
 exports.SongQuality = connection.define(

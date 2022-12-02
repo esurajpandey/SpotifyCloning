@@ -1,4 +1,4 @@
-const connection = require('../connection');
+const connection = require('../../config/connection');
 const sequelize= require('sequelize');
 exports.ActivityLog = connection.define(
     'logActivity',

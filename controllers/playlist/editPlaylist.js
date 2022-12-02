@@ -1,18 +1,24 @@
 const e = require('express');
 const db= require('../../models/db');
+const cloudinary = require('cloudinary');
 const {Playlist} = db;
 
 exports.editPlaylist = async (req,resp,next) => {
     const userId = req.userId;
-    const playlistId = req.params.playlistId;
-    
+    const playlistId = req.body.playlistId;
+    let res = "";
+    console.log(req?.body);
+    if(req?.file?.path){
+        res = await cloudinary.v2.uploader.upload(req.file.path);
+    }
+    console.log(req?.file?.path)
     try{
         let playlist = await  Playlist.findByPk(playlistId);
         if(userId === playlist.userId){
 
-            playlist.title =  req.body.title;
-            playlist.cover = req.body.cover;
-            playlist.description = req.body.description;
+            playlist.title =  req.body?.title ?? playlist?.title;
+            playlist.cover = res?.url??"";
+            playlist.description = req.body?.description ?? "";
 
             if(req.body.type ){
                 playlist.type = req.body.type;

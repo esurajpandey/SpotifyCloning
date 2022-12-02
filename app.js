@@ -1,65 +1,62 @@
-require('dotenv').config();
-const express = require('express');
-const db = require('./models/db');
-const fileUpload = require('express-fileupload');
-const cors = require('cors')
+require("dotenv").config();
+require('./config/cloudinary');
+const express = require("express");
+const db = require("./models/db");
+// const fileUpload = require("express-fileupload");
+const cors = require("cors");
+const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 3000;
+
 app.use(express.json());
-
-app.use(cors({
-}));
-
-
-app.use(fileUpload({
-    useTempFiles:true
-}));
-
 app.use(express.urlencoded({ extended: true }));
-const admin = require('./Admin/routes/adminRouter');
-app.use('/admin',admin)
+// app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }));
 
-const user = require('./routes/user');
-app.use('/user',user);
+app.use(cors({}));
+const admin = require("./Admin/routes/adminRouter");
+app.use("/admin", admin);
 
-const song = require('./routes/song');
-app.use('/song',song);
 
-const subscription = require('./routes/subscription');
-app.use('/subscription',subscription);
 
-const tag = require('./routes/tag');
-app.use('/tag',tag);
+const user = require("./routes/user");
+app.use("/user", user);
 
-const album = require('./routes/album');
-app.use('/album',album);
+const song = require("./routes/song");
+app.use("/song", song);
 
-const artist = require('./routes/artist');
-app.use('/artist',artist);
+const subscription = require("./routes/subscription");
+app.use("/subscription", subscription);
 
-const library = require('./routes/library');
-app.use('/library',library);
+const tag = require("./routes/tag");
+app.use("/tag", tag);
 
-const search = require('./routes/search');
-app.use('/search',search);
+const album = require("./routes/album");
+app.use("/album", album);
 
-const playlist = require('./routes/playlist');
-app.use('/playlist',playlist);
+const artist = require("./routes/artist");
+app.use("/artist", artist);
 
-const podcast = require('./routes/podcast');
-app.use('/podcast',podcast);
+const library = require("./routes/library");
+app.use("/library", library);
 
-const ads = require('./routes/ads');
-app.use('/ads',ads);
+const search = require("./routes/search");
+app.use("/search", search);
 
+const playlist = require("./routes/playlist");
+app.use("/playlist", playlist);
+
+const podcast = require("./routes/podcast");
+app.use("/podcast", podcast);
+
+const ads = require("./routes/ads");
+app.use("/ads", ads);
 
 // const {makePayment,paymentDone,paymentCancel} = require('./payment/payment');
-app.use('/',(req,resp,next)=>{
-    resp.send("Page not found");
+app.use("/", (req, resp, next) => {
+  resp.send("Page not found");
 });
 
-
-app.listen(PORT,()=>{
-    console.log(`Server is running on ${PORT} port`);
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT} port`);
 });

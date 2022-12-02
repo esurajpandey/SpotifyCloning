@@ -2,7 +2,7 @@ const db = require('../../models/db');
 const multer = require("multer");
 const path = require("path");
 
-const fileStorageEngine = multer.diskStorage({
+const storage = multer.diskStorage({
     destination : (req,file,cb) =>{
         cb(null,"./audio");
     },
@@ -14,10 +14,10 @@ const fileStorageEngine = multer.diskStorage({
 });
 
 exports.upload = multer({
-    storage : fileStorageEngine,
+    storage : storage,
     limits: {
         // fileSize: 1000000, // 1000000 Bytes = 1 MB
-        fileSize : 10000000,//for audio
+        fileSize : 13000000,//for audio
     },
     fileFilter(req, file, cb) {
         if (!file.originalname.match(/\.(mp3)$/)) {//upload only audio mp3
@@ -26,8 +26,6 @@ exports.upload = multer({
         cb(undefined, true);
     },
 });
-
-
 
 exports.uploadTrack = async(req,resp,next) =>{
     try{

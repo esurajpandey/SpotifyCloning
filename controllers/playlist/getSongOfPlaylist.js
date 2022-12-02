@@ -47,12 +47,12 @@ exports.getSongsOfUserPlaylist = async (req,resp,next) =>{
         //     ]
         // });
         const playlist = await Playlist.findOne({
-            limit : 1,
-            offset : offset * 1,
+            limit : 10,
+            offset : offset * 10,
             where : { 
                 playlistId : playlistId 
             },
-            attributes : ['title','cover','description'],
+            attributes : ['playlistId','title','cover','description','type'],
             include: [
                 {
                     model : User,
@@ -67,30 +67,24 @@ exports.getSongsOfUserPlaylist = async (req,resp,next) =>{
                     include : [
                         {
                             model : Artist,
-                            attributes : ['artistName'],
+                            attributes : ['artistName','artistId'],
                             through: {
                                 attributes : [],//sungBy
                             },
                         },{
                             model : Album,
-                            attributes : ['title'],
-                        },{
-                            model : Artist,
-                            attributes : ['artistName'],
-                            through: {
-                                attributes : [],//sungBy
-                            },
-                        },{
-                            model : Album,
-                            attributes : ['title'],
-                        }                   ]
+                            attributes : ['title','albumId'],
+                        }                 
+                    ]
                 }
             ]
         });
         
-        resp.status(200).send(playlist);
+        resp.send(playlist);
     }catch(err){
-        resp.status(400).send(err.message);
+        resp.send(JSON.stringify({
+            message : err.message
+        }));
     }
 }
 

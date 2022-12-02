@@ -1,19 +1,16 @@
 const db = require('../../models/db');
+const cloudinary = require('cloudinary');
 const {getUploadedUrl} = require('../../helper/getUrlFromCloudinary');
 exports.createArtist = async(req,resp,next)=>{
     try{
-        const file = req.file.cover;
-        const url = await getUploadedUrl(file);
-
-        const artist = {
+        const res = await cloudinary.v2.uploader.upload(req.file.path);
+        let artist = {
             artistName : req.body.artistName,
-            cover : url,
-            dob : req.body.dob
+            cover : res.url,
+            dob : new Date(req.body.dob)
         };
-        
-        artist = await db.Artist.create(artist);
-        resp.send(artist);
-
+        const data = await db.Artist.create(artist);
+        resp.send(data);
     }catch(err){
         resp.send(err.message);
     }

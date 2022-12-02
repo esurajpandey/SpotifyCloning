@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const connection = require('../connection.js');
+const connection = require('../../config/connection.js');
 
 exports.Podcast = connection.define(
     'podcast',

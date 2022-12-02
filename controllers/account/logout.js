@@ -41,15 +41,17 @@ const clearLogEntry = async (userId,deviceId) =>{
 
 exports.logout = async (req,resp,next) =>{
     const userId = req.userId;
-    const deviceId = req.params.deviceId;
+    const deviceId = req.body.deviceId;
     console.log(deviceId);
+
     try{
         let res = await clearLogEntry(userId,deviceId);
         // let res = {code :200,message : "Logout"};
         resp.status(res.code).send(res.message);
     }catch(err){
-        resp.status(400).send(err.message);
-        console.log(err.message);
+        resp.send(JSON.stringify({
+            message : err.message
+        }));
     }
 }
 

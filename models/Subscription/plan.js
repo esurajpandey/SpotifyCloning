@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
-const connection = require('../connection');
-
+const connection = require('../../config/connection');
 exports.Plan = connection.define('plans',{
     planId : {
         type: Sequelize.INTEGER,
