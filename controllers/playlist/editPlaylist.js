@@ -6,32 +6,35 @@ const {Playlist} = db;
 exports.editPlaylist = async (req,resp,next) => {
     const userId = req.userId;
     const playlistId = req.body.playlistId;
-    let res = "";
-    console.log(req?.body);
+    
+    let res;
+
     if(req?.file?.path){
         res = await cloudinary.v2.uploader.upload(req.file.path);
     }
-    console.log(req?.file?.path)
     try{
         let playlist = await  Playlist.findByPk(playlistId);
         if(userId === playlist.userId){
 
             playlist.title =  req.body?.title ?? playlist?.title;
-            playlist.cover = res?.url??"";
-            playlist.description = req.body?.description ?? "";
-
-            if(req.body.type ){
-                playlist.type = req.body.type;
-            }else {
-                playlist.type = 'private';
-            }
+            playlist.cover = res?.url?? playlist?.cover;
+            playlist.description = req.body?.description ?? playlist?.description;
+            playlist.type = req.body?.type ?? "private"
+            
             playlist = await playlist.save();
-            resp.status(200).send(playlist);
+            resp.send(playlist);
         }else{
-            resp.status(500).send({message : 'No rights to edit',cause : 'Created By someone'});
+            resp.send(JSON.stringify({
+                message : 'No rights to edit',
+                cause : 'Created By someone'}
+            ));
         }
     }catch(err) {
-        resp.status(400).send(err.message);
+        resp.send(
+            JSON.stringify({
+                message :  err.message
+            })
+        );
     }
 }
 

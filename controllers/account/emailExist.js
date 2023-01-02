@@ -6,12 +6,14 @@ exports.isEmailExits = async (req,resp,next) =>{
     if(req.body.userEmail){
         try{
             if(getUserByEmail(req.body.userEmail)){
-                resp.send({status: true,result : "Email Exist"});
+                resp.send(JSON.stringify({status: true,result : "Email aleady exist"}));
             }else{
-                resp.send({status : false,result : "Email doesn't Exist"});
+                resp.send(JSON.stringify({status : false,result : "Email doesn't exist"}));
             }
         }catch(err){
-            resp.send({status: false,result : "pending"});
+            resp.send(JSON.stringify({
+                message : err.message
+            }));
         }
     }else{
         resp.send(JSON.stringify({status : false}))

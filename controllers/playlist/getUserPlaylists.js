@@ -7,14 +7,18 @@ exports.getUserPlaylist = async (req,resp,next) =>{
     console.log("Hello",userId);
     try{
         const playlist = await Playlist.findAll({
-            limit : 10,
-            offset : offset * 10,
+            limit : 20,
+            offset : offset * 20,
             where: {
                 userId : userId,
                 isArchive : false,
                 title :  { [sequelize.Op.not]: 'Liked Song'}
             },
-            attributes : ['playlistId','title','cover','type'],
+            order : [
+                ['createdAt','DESC']
+            ],
+            attributes : ['playlistId','title','cover','type','description'],
+            
             include : [
                 {
                     model : User,

@@ -1,8 +1,7 @@
 const db = require('../../models/db');
 const fs = require("fs");
-
-
 const { getSongUrl } = require('./getSongUrl');
+const saveLastPlayed = require('../Player/saveToLastPlayed');
 const {Song,Artist,Album,User,History,SongQuality} = db;
 
 exports.getSong = async(req,resp,next) =>{
@@ -40,7 +39,8 @@ exports.getSong = async(req,resp,next) =>{
         songData.playCount = songData.playCount + 1;
 
         await songData.save();
-
+        await saveLastPlayed(userId,songId);
+        
         if(userId){//saving into history
             try{
                 const history = await History.findOne({
@@ -61,7 +61,6 @@ exports.getSong = async(req,resp,next) =>{
 }
 
 exports.songTrack = async(req, res) => {
-
     // Ensure there is a range given for the audio
     const range = req.headers.range;
 

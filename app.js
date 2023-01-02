@@ -52,10 +52,16 @@ app.use("/podcast", podcast);
 const ads = require("./routes/ads");
 app.use("/ads", ads);
 
+
+const player = require('./routes/player');
+app.use('/player',player);
+
 // const {makePayment,paymentDone,paymentCancel} = require('./payment/payment');
 app.use("/", (req, resp, next) => {
   resp.send("Page not found");
 });
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT} port`);

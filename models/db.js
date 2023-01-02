@@ -93,10 +93,12 @@ currentPlaying.belongsTo(User,{
 });
 
 
+
 /*-------for maintaining history of played song -------*/
 User.hasOne(History,{
     foreignKey : "userId",
 });
+
 
 History.belongsTo(User,{
     foreignKey : "userId",
@@ -145,6 +147,7 @@ LoginToken.belongsTo(ActivityLog,{
 Podcast.hasMany(Episodes, {
     foreignKey : "podcastId"
 });
+
 Episodes.belongsTo(Podcast,{
     foreignKey : "podcastId"
 });
@@ -175,7 +178,6 @@ Subscription.belongsTo(Plan,{
 Plan.hasMany(Subscription,{
     foreignKey : "planId",
 });
-
 
 
 //album to song
